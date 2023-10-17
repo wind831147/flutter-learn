@@ -1,0 +1,4 @@
+enum ProFileDataEnum {
+  food,
+  girl,
+}

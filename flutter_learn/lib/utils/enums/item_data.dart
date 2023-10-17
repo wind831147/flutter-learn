@@ -1,0 +1,4 @@
+enum ItemDataEnum {
+  food,
+  girl,
+}
