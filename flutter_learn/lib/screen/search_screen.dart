@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_learn/utils/enums/profile_data.dart';
 import '../apis/profile.dart';
-import '../utils/enums/profile_data.dart';
-// import '../utils/extensions/StringExtensions.dart';
-// import 'package:flutter_learn/utils/extensions/StringExtensions.dart';
+import '../models/item.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -12,21 +11,26 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  // 在这里可以添加登录相关的状态和逻辑
   final TextEditingController searchController = TextEditingController();
-  bool data = false;
-  final _formKey = GlobalKey<FormState>(); // 在這裡定義 _formKey
+  final _formKey = GlobalKey<FormState>();
 
-  // String? isDataVaild(String? inputData) {
-  //   if (inputData == null || inputData.isEmpty) {
-  //     return 'missing data';
-  //   }
+  bool isHaveData = false;
 
-  //   if (true) {
-  //     return 'hello';
-  //   }
-  //   return null;
-  // }
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(onSearchTextChanged);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(FocusNode());
+    });
+  }
+
+  void onSearchTextChanged() {
+    setState(() {
+      isHaveData = searchController.text.isNotEmpty;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,22 +41,53 @@ class _SearchPageState extends State<SearchPage> {
                 child: TextFormField(
                     controller: searchController,
                     decoration: const InputDecoration(
-                      hintText: '請輸入文字,禁止輸入符號',
-                    ),
-                    // validator: isDataVaild,
-                    onFieldSubmitted: (String _) {
-                      setState(() {
-                        data = true;
-                      });
-                    }))),
-        body: data
-            ? const Center(
-                child: Text(
-                  ProfileApi.getItemData(ProFileDataEnum.food)
-                );
-              )
-            : const Center(
-                child: Text('456'),
-              ));
+                      hintText: '搜尋使用者....',
+                    )))),
+        body: isHaveData
+            ? FutureBuilder(
+                future: ProfilesApi.getListItemData(ProFileDataEnum.boy),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Profiles>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return const Text('Fail'); // 如果发生错误，显示错误消息
+                  } else {
+                    final profiles = snapshot.data!;
+
+                    return ListView.builder(
+                      itemCount: profiles.length,
+                      itemBuilder: (BuildContext context, index) {
+                        final row = profiles[index];
+                        return InkWell(
+                          child: ListTile(
+                            leading: const CircleAvatar(
+                              backgroundColor: Colors.red,
+                              radius: 16,
+                            ),
+                            title: Text(row.name),
+                            subtitle: Text(row.username),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                })
+            : FutureBuilder(
+                future: ProfilesApi.getItemData(ProFileDataEnum.girl),
+                builder:
+                    (BuildContext context, AsyncSnapshot<Profiles> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return const Text('Fail'); // 如果发生错误，显示错误消息
+                  } else {
+                    final profiles = snapshot.data!;
+                    return Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                            'Not Have Data Name: ${profiles.name}, UserName: ${profiles.username}'));
+                  }
+                }));
   }
 }

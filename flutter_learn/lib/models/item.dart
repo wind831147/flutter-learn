@@ -1,24 +1,30 @@
-import 'package:flutter/material.dart';
-// import 'package:flutter_learn/utils/extensions/string_extension.dart';
-import 'package:flutter_learn/screen/search_screen.dart';
+class Profiles {
+  final String name;
+  final String picUrl;
+  final String username;
+  final bool isTrack;
 
-void main() {
-  runApp(const MyApp());
-}
+  Profiles(
+      {required this.name,
+      required this.picUrl,
+      required this.username,
+      required this.isTrack});
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  factory Profiles.fromJson(Map<String, dynamic> json) {
+    return Profiles(
+      name: json['name'],
+      picUrl: json['picUrl'],
+      username: json['username'],
+      isTrack: json['isTrack'],
+    );
+  }
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Learn',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const SearchPage(),
+  static Profiles getDefaultProfile() {
+    return Profiles(
+      name: '',
+      picUrl: '',
+      username: '',
+      isTrack: false,
     );
   }
 }

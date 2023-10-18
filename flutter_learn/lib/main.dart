@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_learn/utils/extensions/string_extension.dart';
-import 'package:flutter_learn/screen/search_screen.dart';
+import 'package:flutter_learn/layout/base.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SearchPage(),
+      home: const BaseLayout(),
     );
   }
 }
