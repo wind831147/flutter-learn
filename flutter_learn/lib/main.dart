@@ -14,7 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Learn',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primaryColor: Colors.black,
+        hintColor: Colors.white,
+        textTheme: TextTheme(
+          bodyText2: TextStyle(color: Colors.white),
+        ),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const BaseLayout(),

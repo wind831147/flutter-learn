@@ -7,14 +7,18 @@ class ItemApi {
       case ItemDataEnum.food:
         return Profiles(
           name: 'John Doe',
-          picUrl: 'https://example.com/johndoe.jpg',
+          subTitle: '柳丁',
+          picUrl:
+              'https://img.pchome.com.tw/cs/items/DEACFDA900BLUZ3/000007_1627365747.jpg?width=320',
           username: 'johndoe123',
           isTrack: true,
         );
       case ItemDataEnum.girl:
         return Profiles(
           name: 'Joanana',
-          picUrl: 'https://example.com/johndoe.jpg',
+          subTitle: '鞠子',
+          picUrl:
+              'https://img.pchome.com.tw/cs/items/DEACFDA900BLUZ3/000007_1627365747.jpg?width=320',
           username: 'johndoe123',
           isTrack: false,
         );
@@ -30,14 +34,18 @@ class ItemApi {
       case ItemDataEnum.food:
         listProfiles.add(Profiles(
           name: 'Jimmy',
-          picUrl: 'https://example.com/johndoe.jpg',
+          subTitle: '蘋果',
+          picUrl:
+              'https://img.pchome.com.tw/cs/items/DEACFDA900BLUZ3/000007_1627365747.jpg?width=320',
           username: 'Jimmy1994',
           isTrack: true,
         ));
 
         listProfiles.add(Profiles(
           name: 'Jerry',
-          picUrl: 'https://example.com/johndoe.jpg',
+          subTitle: '蓮霧',
+          picUrl:
+              'https://img.pchome.com.tw/cs/items/DEACFDA900BLUZ3/000007_1627365747.jpg?width=320',
           username: 'Jerry1995',
           isTrack: true,
         ));
@@ -46,7 +54,9 @@ class ItemApi {
       case ItemDataEnum.girl:
         listProfiles.add(Profiles(
           name: 'Joanana',
-          picUrl: 'https://example.com/johndoe.jpg',
+          subTitle: '甘蔗',
+          picUrl:
+              'https://img.pchome.com.tw/cs/items/DEACFDA900BLUZ3/000007_1627365747.jpg?width=320',
           username: 'johndoe123',
           isTrack: false,
         ));
